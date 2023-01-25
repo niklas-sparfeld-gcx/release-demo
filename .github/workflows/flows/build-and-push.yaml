@@ -1,9 +1,7 @@
 name: "CD"
 
 on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
@@ -20,10 +18,3 @@ jobs:
         with:
           push: true
           tags: niklassparfeldgcx/release-demo:${{ github.sha }}
-  release:
-    uses: ./.github/workflows/release-to-env.yaml
-    needs: build
-    with:
-      environment: development
-      gitref: ${{ github.sha }}
-    secrets: inherit
