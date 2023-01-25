@@ -22,6 +22,7 @@ jobs:
           tags: niklassparfeldgcx/release-demo:${{ github.sha }}
   release:
     uses: ./.github/workflows/release-to-env.yaml
+    needs: build
     with:
       environment: development
       gitref: ${{ github.sha }}
