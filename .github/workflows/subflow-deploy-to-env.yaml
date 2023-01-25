@@ -6,12 +6,9 @@ on:
       environment:
         type: string
         required: true
-      gitref:
-        type: string
-        required: true
 
 jobs:
-  release:
+  deploy:
     name: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
@@ -23,6 +20,6 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - shell: bash
         run: |
-          docker pull niklassparfeldgcx/release-demo:${{ inputs.gitref }}
-          docker tag niklassparfeldgcx/release-demo:${{ inputs.gitref }} niklassparfeldgcx/release-demo:${{ inputs.environment }}-${{ inputs.gitref }}
-          docker push niklassparfeldgcx/release-demo:${{ inputs.environment }}-${{ inputs.gitref }}
+          docker pull niklassparfeldgcx/release-demo:${{ github.sha }}
+          docker tag niklassparfeldgcx/release-demo:${{ github.sha }} niklassparfeldgcx/release-demo:${{ inputs.environment }}-${{ github.sha }}
+          docker push niklassparfeldgcx/release-demo:${{ inputs.environment }}-${{ github.sha }}

@@ -5,10 +5,9 @@ on:
     types: [published]
 
 jobs:
-  release:
+  deploy:
     if: "github.event.release.prerelease"
-    uses: ./.github/workflows/subflow-release-to-env.yaml
+    uses: ./.github/workflows/subflow-deploy-to-env.yaml
     secrets: inherit
     with:
       environment: staging
-      gitref: ${{ github.sha }}

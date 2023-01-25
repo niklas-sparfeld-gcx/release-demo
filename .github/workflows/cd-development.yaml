@@ -8,10 +8,9 @@ jobs:
   build:
     uses: ./.github/workflows/subflow-build-and-push.yaml
     secrets: inherit
-  release:
-    uses: ./.github/workflows/subflow-release-to-env.yaml
+  deploy:
+    uses: ./.github/workflows/subflow-deploy-to-env.yaml
     needs: build
     secrets: inherit
     with:
       environment: development
-      gitref: ${{ github.sha }}
