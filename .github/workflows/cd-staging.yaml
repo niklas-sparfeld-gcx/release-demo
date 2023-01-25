@@ -8,7 +8,6 @@ jobs:
   release:
     if: github.event_name == 'pre-release'
     uses: ./.github/workflows/subflow-release-to-env.yaml
-    needs: build
     secrets: inherit
     with:
       environment: staging
