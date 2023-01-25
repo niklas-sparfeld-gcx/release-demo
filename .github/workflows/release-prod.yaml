@@ -1,0 +1,17 @@
+name: "Release"
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to release into"
+        type: environment
+        required: true
+
+jobs:
+  build:
+    uses: ./.github/workflows/release-to-env.yaml
+    with:
+      environment: ${{ inputs.environment }}
+      gitref: ${{ github.sha }}
+    secrets: inherit

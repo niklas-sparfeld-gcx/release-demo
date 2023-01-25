@@ -1,0 +1,27 @@
+name: "Release"
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      gitref:
+        type: string
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - shell: bash
+        run: |
+          docker pull niklassparfeldgcx/release-demo:${{ inputs.gitref }}
+          docker tag niklassparfeldgcx/release-demo:${{ inputs.gitref }} niklassparfeldgcx/release-demo:${{ inputs.environment }}-${{ inputs.gitref }}
+          docker push niklassparfeldgcx/release-demo:${{ inputs.environment }}-${{ inputs.gitref }}
