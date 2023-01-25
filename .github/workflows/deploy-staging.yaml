@@ -2,7 +2,7 @@ name: "deploy / staging"
 
 on:
   release:
-    types: [published, prereleased]
+    types: [published]
 
 jobs:
   release:
