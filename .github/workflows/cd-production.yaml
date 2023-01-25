@@ -6,10 +6,10 @@ on:
 
 jobs:
   release:
-    if: github.event_name == 'pre-release'
+    if: github.event_name == 'release'
     uses: ./.github/workflows/flows/release-to-env.yaml
     needs: build
     secrets: inherit
     with:
-      environment: staging
+      environment: production
       gitref: ${{ github.sha }}
